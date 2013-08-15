@@ -1,6 +1,7 @@
 
-app     = require '../server'
 request = require 'supertest'
+should  = require 'should'
+app     = require '../server'
 
 api = request(app)
 
@@ -39,10 +40,10 @@ describe 'Authentication', ->
                 .send(testUser)
                 .expect(201)
                 .expect('Content-Type', /json/)
-                .expect({
-                    username: testUser.username
-                })
-                .end(done)
+                .end (err, res) ->
+                    return done(err) if err
+                    res.body.should.have.property 'username', testUser.username
+                    done()
 
     describe 'Login', ->
 
