@@ -11,7 +11,9 @@
   },
   "devDependencies": {
     "flour": "",
-    "mocha": ""
+    "mocha": "",
+    "should": "~1.2.2",
+    "supertest": "~0.7.1"
   },
   "scripts": {
     "test": "mocha"
