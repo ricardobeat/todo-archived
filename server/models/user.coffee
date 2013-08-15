@@ -23,16 +23,22 @@ UserSchema.static 'register', (username, password, callback) ->
         }, callback
 
 
+# Find by username.
+UserSchema.static 'findByUsername', (username, callback) ->
+    @findOne { username }, callback
+
+
 # Verify user credentials.
 UserSchema.static 'verify', (username, password, callback) ->
-    @findOne { username }, (err, user) ->
+    @findOne({ username}).select('username salt password').exec (err, user) ->
         return callback(err) if err
-        pwd.hash password, user.salt, (err, hash) ->
+        pwd.hash password, user?.salt, (err, hash) ->
             return callback(err) if err
             hash = hash.toString('base64')
             if user.password isnt hash
                 return callback new Error('Invalid credentials')
-            callback null, user
+            callback null, user.toObjectSafe()
+
 
 # Return a "safe" version of the user object omitting credentials.
 UserSchema.method 'toObjectSafe', () ->

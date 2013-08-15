@@ -1,12 +1,22 @@
 
 express  = require 'express'
 mongoose = require 'mongoose'
+Konf     = require 'konf'
+
+# App configuration
+# -----------------------------------------------------------------------------
+
+config = new Konf().describe({
+    mongo: {
+        url: ["MongoDB connection path", "mongodb://localhost/topdo"]
+    }
+}).load('./config').env().toJSON()
 
 
 # Database & models
 # -----------------------------------------------------------------------------
 
-mongoose.connect('mongodb://localhost/topdo')
+mongoose.connect(config.mongo.url)
 mongoose.model 'User', require('./models/user')
 
 
@@ -23,6 +33,8 @@ user = require './controllers/user'
 app = express()
 
 app.configure ->
+    app.use express.cookieParser('4KWCi/pYh3en')
+    app.use express.cookieSession({ secret: 'EXDiK8ktA5xd' })
     app.use express.bodyParser()
     app.use app.router
     app.use express.static "#{__dirname}/public"

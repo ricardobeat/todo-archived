@@ -10,7 +10,8 @@
     "stylus": "~0.36.1",
     "underscore": "~1.5.1",
     "mongoose": "~3.6.17",
-    "pwd": "0.0.2"
+    "pwd": "0.0.2",
+    "konf": "~0.4.0"
   },
   "devDependencies": {
     "flour": "~0.5.5",

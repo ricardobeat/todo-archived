@@ -1,9 +1,15 @@
 
-request = require 'supertest'
-should  = require 'should'
-app     = require '../server'
+request  = require 'supertest'
+should   = require 'should'
 
+process.env.MONGO_URL = "mongodb://localhost/topdo-test"
+
+app = require '../server'
 api = request(app)
+
+after (done) ->
+    mongoose = require 'mongoose'
+    mongoose.model('User').remove({}).exec(done)
 
 describe 'Server', ->
 
@@ -65,8 +71,8 @@ describe 'Authentication', ->
                 .send(testUser)
                 .expect(200)
                 .expect('Content-Type', /json/)
-                .expect('Set-Cookie', /connect\.sid/)
-                .expect({
-                    username: testUser.username
-                })
-                .end(done)
+                .expect('Set-Cookie', /connect\.s/)
+                .end (err, res) ->
+                    return done(err) if err
+                    res.body.should.have.property 'username', testUser.username
+                    done()
