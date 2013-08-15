@@ -1,0 +1,19 @@
+{
+  "name": "project-gergely-ricardo",
+  "description": "",
+  "private": true,
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "express": "~3.3.5",
+    "coffee-script": "~1.6.3",
+    "stylus": "~0.36.1"
+  },
+  "devDependencies": {
+    "flour": "",
+    "mocha": ""
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
