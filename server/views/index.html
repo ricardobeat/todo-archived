@@ -9,10 +9,32 @@
     <div class="pure-g-r">
         <header id="header" class="pure-u-1">
             <h1>TopDo</h1>
-            <h2>task manager</h2>
         </header>
 
-        <div id="main"></div>
+        <div id="main" class="pure-u-2-5">
+            <div class="add-item pure-form">
+                <input id="add-todo" placeholder="Add item" type="text" />
+            </div>
+            <ul class="todos"></ul>
+        </div>
     </div>
+
+    <script type="text/x-handlebars-template" id="todo-item-template">
+        <input type="checkbox" {{#if done}}checked{{/if}} />
+        <p>{{title}}</p>
+        <button class="pure-button delete" title="Delete">X</button>
+        <button class="pure-button edit">Edit</button>
+        <select class="priority">
+            {{#select priority}}
+            <option value="urgent">urgent</option>
+            <option value="normal">normal</option>
+            <option value="low">low</option>
+            {{/select}}
+        </select>
+    </script>
+
+    <script src="/scripts/vendor.js"></script>
+    <script src="/scripts/app.js"></script>
+    <script>App.init()</script>
 </body>
 </html>
