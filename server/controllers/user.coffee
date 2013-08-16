@@ -18,6 +18,11 @@ login = (req, res, next) ->
         res.locals(user)
         next()
 
+auth = (req, res, next) ->
+    # console.log req.session.user
+    return next() if req.session.user?
+    res.status(401)
+    next new Error('Unauthorized')
 
 
 #### ---------------------------------------------------------------------- ###
@@ -25,4 +30,5 @@ login = (req, res, next) ->
 module.exports = {
     create
     login
+    auth
 }

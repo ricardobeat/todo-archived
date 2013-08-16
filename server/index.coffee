@@ -18,6 +18,7 @@ config = new Konf().describe({
 
 mongoose.connect(config.mongo.url)
 mongoose.model 'User', require('./models/user')
+mongoose.model 'Todo', require('./models/todo')
 
 
 # Controllers
@@ -25,6 +26,7 @@ mongoose.model 'User', require('./models/user')
 
 api  = require './controllers/api'
 user = require './controllers/user'
+todo = require './controllers/todo'
 
 
 # Express server
@@ -36,8 +38,8 @@ app.configure ->
     app.use express.cookieParser('4KWCi/pYh3en')
     app.use express.cookieSession({ secret: 'EXDiK8ktA5xd' })
     app.use express.bodyParser()
-    app.use app.router
     app.use express.static "#{__dirname}/../public"
+    app.use app.router
 
 
 # Routes
@@ -52,6 +54,13 @@ app.get '/', (req, res) ->
 
 app.post '/user', user.create, api.json
 app.post '/login', user.login, api.json
+
+app.get '*', user.auth # require authentication for subsequent routes
+
+app.get  '/todos', todo.list, api.json
+app.post '/todos', todo.create, api.json
+app.put  '/todos/:id', todo.edit, api.json
+app.del  '/todos/:id', todo.destroy, api.json
 
 app.use api.error
 

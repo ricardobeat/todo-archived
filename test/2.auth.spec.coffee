@@ -50,4 +50,5 @@ describe 'Authentication', ->
             .end (err, res) ->
                 return done(err) if err
                 res.body.should.have.property 'username', testUser.username
+                api.cookies = res.headers['set-cookie'].pop().split(';')[0]
                 done()
