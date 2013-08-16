@@ -1,6 +1,7 @@
 
 App.View.Main = Backbone.View.extend {
     el: '#main'
+    template: Handlebars.compile $('#main-template').html()
 
     events:
         "keypress #add-todo": "keypressAdd"
@@ -12,6 +13,8 @@ App.View.Main = Backbone.View.extend {
         input.val('')
 
     initialize: ->
+        this.$el.html @template(@model?.toJSON())
+        
         @newItem = new App.View.NewItem
         @list = @$el.find('.todos')
 

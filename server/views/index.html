@@ -11,13 +11,39 @@
             <h1>TopDo</h1>
         </header>
 
-        <div id="main" class="pure-u-2-5">
-            <div class="add-item pure-form">
-                <input id="add-todo" placeholder="Add item" type="text" />
-            </div>
-            <ul class="todos"></ul>
-        </div>
+        <div id="main" class="pure-u-2-5"></div>
     </div>
+
+    <script type="text/x-handlebars-template" id="login-template">
+        <h2>Log in</h2>
+        <form class="pure-form pure-form-stacked login-form" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" />
+            <button class="pure-button pure-button-primary">Login</button>
+        </form>
+        <a href="#register">Register</a>
+    </script>
+
+    <script type="text/x-handlebars-template" id="register-template">
+        <h2>Register</h2>
+        <form class="pure-form pure-form-stacked register-form" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" />
+            <button class="pure-button pure-button-primary">Register</button>
+        </form>
+        <a href="#login">Log in</a>
+    </script>
+
+    <script type="text/x-handlebars-template" id="main-template">
+        <div class="add-item pure-form">
+            <input id="add-todo" placeholder="Add item" type="text" />
+        </div>
+        <ul class="todos"></ul>
+    </script>
 
     <script type="text/x-handlebars-template" id="todo-item-template">
         <input type="checkbox" {{#if done}}checked{{/if}} />
