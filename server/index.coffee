@@ -37,7 +37,7 @@ app.configure ->
     app.use express.cookieSession({ secret: 'EXDiK8ktA5xd' })
     app.use express.bodyParser()
     app.use app.router
-    app.use express.static "#{__dirname}/public"
+    app.use express.static "#{__dirname}/../public"
 
 
 # Routes
