@@ -10,7 +10,10 @@ json = (req, res) ->
 # normalizes error responses.
 
 error = (err, req, res, next) ->
-    res.status(500) if res.statusCode < 400
+    if err.name is 'CastError' and err.type is 'ObjectId'
+        res.status(404) if res.statusCode < 400
+    else
+        res.status(500) if res.statusCode < 400
     res.send {
         code    : res.statusCode
         message : err.message

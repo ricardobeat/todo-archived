@@ -9,7 +9,10 @@ App.View.Main = Backbone.View.extend {
     keypressAdd: (e) ->
         return if e.which isnt 13
         input = $(e.target)
-        App.todos.push { title: input.val() }
+        item = new App.Model.TodoItem { title: input.val() }
+        item.save()
+        console.log item
+        App.todos.push item
         input.val('')
 
     initialize: ->

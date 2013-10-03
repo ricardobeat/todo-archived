@@ -11,6 +11,7 @@ App.View.TodoItem = Backbone.View.extend {
         "keypress p": "stopEditing"
 
     delete: ->
+        @model.destroy()
         @remove()
 
     edit: ->
@@ -20,6 +21,11 @@ App.View.TodoItem = Backbone.View.extend {
         return if e.which isnt 13
         e.preventDefault()
         this.$('p').attr('contenteditable', false).blur()
+        @model.set {
+            title: this.$('p').text()
+            priority: this.$('.priority').val()
+        }
+        @model.save()
 
     render: ->
         this.$el.html @template(@model?.toJSON())

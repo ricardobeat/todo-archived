@@ -22,7 +22,8 @@ edit = (req, res, next) ->
     Todo.findOneAndUpdate {
         _id: req.params.id
         user: req.session.user._id
-    }, req.body, (err, todo) ->
+    }, _.omit(req.body, '_id'), (err, todo) ->
+        console.log err, todo
         return next(err) if err
         res.locals todo.toObjectSafe()
         next()
